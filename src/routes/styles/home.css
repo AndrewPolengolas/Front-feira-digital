@@ -1,12 +1,18 @@
 @import "bootstrap/dist/css/bootstrap.min.css";
 
+.d-flex {
+	justify-content: center;
+}
 .card {
 	border: 5px solid var(--verde-amarelado) !important;
 	box-shadow: var(--sombra-principal);
+	max-width: 200px;
+	margin: 0 10px;
 }
 .card img {
 	transform: scale(0.9);
 	transition: 0.3s all ease;
+	height: 100%;
 }
 
 .card img:hover {

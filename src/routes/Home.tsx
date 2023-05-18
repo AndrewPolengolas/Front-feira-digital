@@ -29,17 +29,7 @@ const Home = () => {
     return await ListarProdutos(busca, navigate);
   };
 
-  const listaProdutos2 = [
-    {id:1,codigo:1000,imagem:"https://www.minicash.com.br/image/cache/catalog/img/produtos_2021/abacaxi-un-550x550.png",nome:"abacaxi",preco:200.00,tipoEstoque:"PESO",descricao:"Abacaxi doce",pesoMedio:0.500,descQuantidade:"200"},
-    {id:2,codigo:1001,imagem:"https://www.minicash.com.br/image/cache/catalog/img/produtos_2021/abacaxi-un-550x550.png",nome:"abacaxi",preco:200.00,tipoEstoque:"PESO",descricao:"Abacaxi doce",pesoMedio:0.500,descQuantidade:"200"},
-    {id:3,codigo:1002,imagem:"https://www.minicash.com.br/image/cache/catalog/img/produtos_2021/abacaxi-un-550x550.png",nome:"abacaxi",preco:200.00,tipoEstoque:"PESO",descricao:"Abacaxi doce",pesoMedio:0.500,descQuantidade:"200"},
-    {id:4,codigo:1003,imagem:"https://www.minicash.com.br/image/cache/catalog/img/produtos_2021/abacaxi-un-550x550.png",nome:"abacaxi",preco:200.00,tipoEstoque:"PESO",descricao:"Abacaxi doce",pesoMedio:0.500,descQuantidade:"200"},
-    {id:5,codigo:1004,imagem:"https://www.minicash.com.br/image/cache/catalog/img/produtos_2021/abacaxi-un-550x550.png",nome:"abacaxi",preco:200.00,tipoEstoque:"PESO",descricao:"Abacaxi doce",pesoMedio:0.500,descQuantidade:"200"},
-    {id:6,codigo:1005,imagem:"https://www.minicash.com.br/image/cache/catalog/img/produtos_2021/abacaxi-un-550x550.png",nome:"abacaxi",preco:200.00,tipoEstoque:"PESO",descricao:"Abacaxi doce",pesoMedio:0.500,descQuantidade:"200"},
-    {id:7,codigo:1006,imagem:"https://www.minicash.com.br/image/cache/catalog/img/produtos_2021/abacaxi-un-550x550.png",nome:"abacaxi",preco:200.00,tipoEstoque:"PESO",descricao:"Abacaxi doce",pesoMedio:0.500,descQuantidade:"200"},
-    {id:8,codigo:1007,imagem:"https://www.minicash.com.br/image/cache/catalog/img/produtos_2021/abacaxi-un-550x550.png",nome:"abacaxi",preco:200.00,tipoEstoque:"PESO",descricao:"Abacaxi doce",pesoMedio:0.500,descQuantidade:"200"},
-
-  ]
+  
 
   useEffect(() => {
     (async () =>
@@ -69,13 +59,10 @@ const Home = () => {
           </select>
         </div>
       </div>
-      <div className="row">
-        {listaProdutos2.map((produto) => (
-          <div className="col-md-2 mb-4" key={produto.id}>
-            <div
-              className="card"
-              style={{ maxHeight: "500px" }}
-            >
+      <div className="d-flex flex-wrap">
+        {listaProdutos.map((produto) => (
+          <div className="card mb-4" key={produto.id}>
+
               <Link to={`/produto/${produto.codigo}`} state={{ produto }}>
                 <img
                   className="card-img-top"
@@ -102,7 +89,7 @@ const Home = () => {
                       )}
                 </p>
               </div>
-            </div>
+            
           </div>
         ))}
       </div>
