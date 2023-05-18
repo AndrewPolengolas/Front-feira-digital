@@ -60,30 +60,6 @@
 	text-align: center;
 }
 
-/*botões*/
-.btn {
-	min-width: 100px;
-	min-height: 25px;
-	box-shadow: var(--sombra-principal);
-	transition: 0.3s all ease;
-}
-.btn.verde_amarelado {
-	background-color: var(--verde-amarelado);
-	color: var(--verde-escuro);
-}
-.btn.verde_escuro {
-	background-color: var(--verde-escuro);
-	color: var(--branco);
-}
-.btn.verde_amarelado:hover {
-	background-color: var(--verde-escuro);
-	color: var(--branco);
-}
-.btn.verde_escuro:hover {
-	background-color: var(--verde-amarelado);
-	color: var(--verde-escuro);
-}
-
 /*Menssagem*/
 .msgCadastrar,
 .msglogin {
