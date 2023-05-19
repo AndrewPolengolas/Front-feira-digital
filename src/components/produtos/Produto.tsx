@@ -15,24 +15,43 @@ const ProdutoSelecionado = () => {
   const carrinhoContext = useContext(CarrinhoContext);
 
   const [count, setCount] = useState(0);
+  const [valueTotal,setValueTotal]=useState(0)
 
   const increment = () => {
     if (produto?.estoque) {
       if (count < produto?.estoque) {
+
         setCount(count + 1);
       }
     }
-  };
+  };  
 
   const decrement = () => {
     if (count > 0) {
-      setCount(count - 1);
+      setCount(count - 1);     
     }
   };
+
+  const adjustTotal = () =>{
+    let value;
+    if(produto?.preco){
+      value = produto?.preco * count
+    }else{
+      value = 0
+    }
+    setValueTotal(value)
+  }
+
+  useEffect(() => {
+    adjustTotal()
+  }, [count]);
 
   useEffect(() => {
     (async () => setProduto(await buscarProduto(produtoBusca, navigate)))();
   }, [produtoBusca, navigate]);
+
+
+
 
   const buscarProduto = async (
     prod: Produto,
@@ -60,67 +79,57 @@ const ProdutoSelecionado = () => {
   };
 
   return (
-    <div>
+    <div className="container">
       <NavBar></NavBar>
-      <div
-        className="container d-flex align-items-center justify-content-center"
-        style={{ paddingTop: "100px" }}
-      >
-        <div
-          className="bg-secondary bg-opacity-10"
-          style={{ maxWidth: "1200px", maxHeight: "700px", padding: "20px" }}
-        >
-          <div className="card-body row">
-            <div className="col-md-7 centralizar">
-              <img
-                className="w-100 m-2"
-                src={produto?.imagem ?? undefined}
-                alt={produto?.nome ?? ""}
-              />
-            </div>
-            <div className="col-md-5 centralizar d-flex">
-              <div className="row">
-                <h2 style={{ fontWeight: "400" }}>{produto?.nome}</h2>
-                <h4>
-                  {produto?.tipoEstoque !== "PESO"
-                    ? `R$ ${produto?.preco?.toFixed(2).replace(".", ",")}/Kg`
-                    : `R$ ${produto?.preco?.toFixed(2).replace(".", ",")}`}
-                </h4>
-                <p>
-                  {produto?.tipoEstoque !== "PESO"
-                    ? `${produto?.descricao} (Peso médio unidade: ${produto?.pesoMedio}Kg)`.replace(
-                        ".",
-                        ","
-                      )
-                    : `${produto.descricao} ${produto.descQuantidade}Kg`.replace(
-                        ".",
-                        ","
-                      )}
-                </p>
-                <div className="d-flex centralizar justify-content-between">
-                  <div>
-                    <button onClick={decrement} className="btn btn-success">
-                      -
-                    </button>
+      <div className="card-produto">
+      <div>
+        <img src={produto?.imagem ?? undefined}
+          alt={produto?.nome ?? ""}
+        />
+      </div>
 
-                    <span className="margin-span">{count}</span>
-
-                    <button onClick={increment} className="btn btn-success">
-                      +
-                    </button>
-                  </div>
-                  <div>
-                    <button onClick={handleProduto} className="btn btn-success">
-                      Adicionar ao carrinho
-                    </button>
-                  </div>
-                </div>
-              </div>
+      <div className="color-container-details">
+        <div className="container-details">
+          <h2 >{produto?.nome}</h2>
+          <h4>
+            {produto?.tipoEstoque !== "PESO"
+              ? `R$ ${produto?.preco?.toFixed(2).replace(".", ",")}/Kg`
+              : `R$ ${produto?.preco?.toFixed(2).replace(".", ",")}`}
+          </h4>
+          <p>
+            {produto?.tipoEstoque !== "PESO"
+              ? `${produto?.descricao} (Peso médio unidade: ${produto?.pesoMedio}Kg)`.replace(
+                  ".",
+                  ","
+                )
+              : `${produto.descricao} ${produto.descQuantidade}Kg`.replace(
+                  ".",
+                  ","
+                )}
+          </p>
+          
+            <div className="container-btns">
+              <button onClick={decrement} className="btn verde_escuro">
+                -
+              </button>
+              <div className="quantidade">{count}</div>
+              <button onClick={increment} className="btn verde_escuro">
+                +
+              </button>
             </div>
-          </div>
+
+            <div className="container-total">
+              <div>Total: {valueTotal.toFixed(2).replace(".", ",")}</div>
+              <button onClick={handleProduto} className="btn verde_amarelado">
+                Adicionar ao carrinho
+              </button>
+            </div>
+          
         </div>
       </div>
     </div>
+    </div>
+      
   );
 };
 

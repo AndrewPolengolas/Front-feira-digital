@@ -1,42 +1,68 @@
-@import 'bootstrap/dist/css/bootstrap.min.css';
+@import "bootstrap/dist/css/bootstrap.min.css";
 
-.align-right {
-    padding-top: 1.5rem;
+.card-produto {
+	margin-top: 150px;
+	width: 100%;
+	border-radius: 20px;
+	border: 5px solid var(--verde-amarelado);
+	box-shadow: var(--sombra-principal);
+	padding: 15px;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-around;
 }
 
-.produtos-container {
-    padding-bottom: 50px;
+.color-container-details {
+	padding: 15px;
+	background-color: var(--verde-medio);
+	border-radius: 15px;
+	box-shadow: var(--sombra-principal);
 }
 
-.maximizar-width {
-    width: 100%;
-    height: 20%;
+.container-details {
+	height: 100%;
+}
+.container-details h2 {
+	margin: 15px 0;
 }
 
-.card-img-top {
-    width: 50%;
-    height: 50%;
+.container-details p {
+	margin-top: 15px;
+	height: 50px;
 }
 
-.centralizar {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.container-details .container-btns {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 35px;
 }
 
-.texto {
-    text-align: center;
+.container-details .container-total {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
 }
 
-.centralizar-junto {
-    justify-content: center;
-    align-items: center;
+.quantidade {
+	background-color: var(--branco);
+	width: 50px;
+	height: 50px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border-radius: 100%;
+	border: 3px solid var(--verde-amarelado);
 }
 
-.margin-span {
-    margin: 5px;
+.quantidade,
+.container-details .container-total div {
+	font-size: 25px;
 }
 
-.separar{
-    margin: 50px;
+.container-details .container-total div {
+	font-size: 25px;
+	font-weight: 700;
+	margin-bottom: 50px;
 }
