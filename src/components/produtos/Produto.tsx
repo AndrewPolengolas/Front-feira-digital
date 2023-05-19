@@ -1,14 +1,34 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import Produto from "../../model/Produto";
+import NavBar from "../navbar/navbar";
 import ListarProdutoUnico from "./ListarProdutoUnico";
 import "./produto.css";
+import Carrinho from "../../model/Carrinho";
+import { CarrinhoContext } from "../carrinho/CarrinhoContext";
 
 const ProdutoSelecionado = () => {
   const location = useLocation();
   const produtoBusca = location.state.produto as Produto;
   const [produto, setProduto] = useState<Produto | null>();
   const navigate = useNavigate();
+  const carrinhoContext = useContext(CarrinhoContext);
+
+  const [count, setCount] = useState(0);
+
+  const increment = () => {
+    if (produto?.estoque) {
+      if (count < produto?.estoque) {
+        setCount(count + 1);
+      }
+    }
+  };
+
+  const decrement = () => {
+    if (count > 0) {
+      setCount(count - 1);
+    }
+  };
 
   useEffect(() => {
     (async () => setProduto(await buscarProduto(produtoBusca, navigate)))();
@@ -22,50 +42,77 @@ const ProdutoSelecionado = () => {
   };
 
   const handleProduto = () => {
-    console.log("Pronto");
-    return navigate("/");
+    if (count !== 0 && produto) {
+      console.log("Pronto");
+      const carrinhoString = sessionStorage.getItem("carrinho");
+
+      if (carrinhoString) {
+        const carrinho = JSON.parse(carrinhoString) as Carrinho[];
+
+        const addCarrinho: Carrinho = {
+          produto: produto,
+          quantidade: count,
+        };
+
+        carrinhoContext?.adicionarItem(addCarrinho);
+      }
+    }
   };
 
   return (
-    <div className="bg-secondary bg-opacity-10">
-      <div className="container d-flex align-items-center justify-content-center">
-        <div className="card col-md-10">
+    <div>
+      <NavBar></NavBar>
+      <div
+        className="container d-flex align-items-center justify-content-center"
+        style={{ paddingTop: "100px" }}
+      >
+        <div
+          className="bg-secondary bg-opacity-10"
+          style={{ maxWidth: "1200px", maxHeight: "700px", padding: "20px" }}
+        >
           <div className="card-body row">
-            <div className="col-md-7">
+            <div className="col-md-7 centralizar">
               <img
-                className="card-img-top"
+                className="w-100 m-2"
                 src={produto?.imagem ?? undefined}
                 alt={produto?.nome ?? ""}
               />
             </div>
-            <div className="col-md-5 ">
-              <div className="container d-flex justify-content-around">
-                <div className="row">
-                  <div className="col-12 text-center">
-                    <h2>{produto?.nome}</h2>
+            <div className="col-md-5 centralizar d-flex">
+              <div className="row">
+                <h2 style={{ fontWeight: "400" }}>{produto?.nome}</h2>
+                <h4>
+                  {produto?.tipoEstoque !== "PESO"
+                    ? `R$ ${produto?.preco?.toFixed(2).replace(".", ",")}/Kg`
+                    : `R$ ${produto?.preco?.toFixed(2).replace(".", ",")}`}
+                </h4>
+                <p>
+                  {produto?.tipoEstoque !== "PESO"
+                    ? `${produto?.descricao} (Peso médio unidade: ${produto?.pesoMedio}Kg)`.replace(
+                        ".",
+                        ","
+                      )
+                    : `${produto.descricao} ${produto.descQuantidade}Kg`.replace(
+                        ".",
+                        ","
+                      )}
+                </p>
+                <div className="d-flex centralizar justify-content-between">
+                  <div>
+                    <button onClick={decrement} className="btn btn-success">
+                      -
+                    </button>
+
+                    <span className="margin-span">{count}</span>
+
+                    <button onClick={increment} className="btn btn-success">
+                      +
+                    </button>
                   </div>
-                  <div className="col-12">
-                    <h4 className="card-text">
-                      {produto?.tipoEstoque !== "PESO"
-                        ? `R$ ${produto?.preco
-                            ?.toFixed(2)
-                            .replace(".", ",")}/Kg`
-                        : `R$ ${produto?.preco?.toFixed(2).replace(".", ",")}`}
-                    </h4>
-                    <p className="card-text">
-                      {produto?.tipoEstoque !== "PESO"
-                        ? `${produto?.descricao} (Peso médio unidade: ${produto?.pesoMedio}Kg)`.replace(
-                            ".",
-                            ","
-                          )
-                        : `${produto.descricao} ${produto.descQuantidade}Kg`.replace(
-                            ".",
-                            ","
-                          )}
-                    </p>
-                  </div>
-                  <div className="col-12">
-                    <button onClick={handleProduto}>Comprar </button>
+                  <div>
+                    <button onClick={handleProduto} className="btn btn-success">
+                      Adicionar ao carrinho
+                    </button>
                   </div>
                 </div>
               </div>

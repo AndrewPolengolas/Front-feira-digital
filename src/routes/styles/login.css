@@ -1,0 +1,141 @@
+@import "bootstrap/dist/css/bootstrap.min.css";
+
+/*Container*/
+.container-login {
+	height: 100vh;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+}
+.container-centro {
+	display: flex;
+	box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+	border-radius: 10px;
+}
+
+/*Cartões*/
+.card-p-4-login,
+.card-cadastro {
+	padding: 50px;
+	width: 400px;
+}
+
+.card-p-5-login,
+.card-login {
+	flex: 1;
+	padding: 50px;
+	width: 400px;
+	height: 700px;
+	max-width: 500px;
+	max-height: 800px;
+}
+
+.card-p-4-login,
+.card-p-5-login {
+	background-color: var(--amarelo-claro);
+	color: var(--verde-medio);
+	border-radius: 0px 10px 10px 0px;
+}
+
+.card-cadastro,
+.card-login {
+	background-color: var(--verde-medio);
+	border-radius: 10px 0px 0px 10px;
+}
+
+.card-login {
+	background-color: var(--verde-medio);
+	border-radius: 10px 0px 0px 10px;
+}
+
+.mb-5-login,
+.mb-6-login {
+	font-size: 30px;
+	color: white;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+}
+
+/*botões*/
+.btn {
+	min-width: 100px;
+	min-height: 25px;
+	box-shadow: var(--sombra-principal);
+	transition: 0.3s all ease;
+}
+.btn.verde_amarelado {
+	background-color: var(--verde-amarelado);
+	color: var(--verde-escuro);
+}
+.btn.verde_escuro {
+	background-color: var(--verde-escuro);
+	color: var(--branco);
+}
+.btn.verde_amarelado:hover {
+	background-color: var(--verde-escuro);
+	color: var(--branco);
+}
+.btn.verde_escuro:hover {
+	background-color: var(--verde-amarelado);
+	color: var(--verde-escuro);
+}
+
+/*Menssagem*/
+.msgCadastrar,
+.msglogin {
+	color: white;
+	padding-bottom: 20px;
+}
+
+/*Icone*/
+.icone {
+	font-size: 35px;
+	margin: 5px;
+}
+
+/*Inputs*/
+.sobrepor {
+	position: relative;
+	display: flex;
+}
+
+.sobrepor .icone {
+	position: absolute;
+}
+
+.personalizado.form-control {
+	padding-left: 50px !important;
+}
+
+.personalizado input[type="password"] {
+	background-color: var(--verde-medio);
+	border: 1px solid #ccc;
+	color: whitesmoke;
+	margin: 0 0 0 0;
+	padding: 5px;
+}
+
+.personalizado input[type="text"] {
+	background-color: var(--verde-medio);
+	border: 1px solid #ccc;
+	color: whitesmoke;
+	margin: 0 0 0 0;
+	padding: 5px;
+}
+
+.personalizado input[type="email"] {
+	background-color: var(--verde-medio);
+	border: 1px solid #ccc;
+	color: whitesmoke;
+	margin: 0 0 0 0;
+	padding: 5px;
+}
+
+.mb-4-login {
+	text-align: center;
+	color: var(--verde-medio);
+}

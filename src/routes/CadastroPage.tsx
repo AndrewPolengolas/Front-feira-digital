@@ -3,7 +3,9 @@ import InputMask from "react-input-mask";
 import CadastroCliente from "../model/CadastroCliente";
 import UserRecord from "../model/UserRecord";
 import { AuthContext } from "../service/auth-context";
-import "../styles/login.css";
+import "./styles/login.css";
+import { useNavigate } from "react-router-dom";
+import { MdKey, MdPerson,MdLogin,MdCached } from "react-icons/md";
 
 export default function CadastroPage() {
   const [login, setLogin] = useState("");
@@ -11,9 +13,8 @@ export default function CadastroPage() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [confirmPasswordError, setConfirmPasswordError] = useState("");
   const [nome, setNome] = useState("");
-  const [documento, setDocumento] = useState("");
-  const [celular, setCelular] = useState("");
-  const [email, setEmail] = useState("");
+
+  const navigate = useNavigate();
 
   const { signUp } = useContext(AuthContext);
 
@@ -34,10 +35,10 @@ export default function CadastroPage() {
 
     const cadastro: CadastroCliente = {
       nome,
-      documento,
+      documento: null,
       tipoDocumento: "CPF",
-      celular,
-      email,
+      celular: null,
+      email: login,
       tipoPessoa: "FISICA",
       userRecord,
     };
@@ -45,99 +46,87 @@ export default function CadastroPage() {
     await signUp(cadastro);
   };
 
+  function entrar(e: { preventDefault: () => void }) {
+    e.preventDefault();
+    navigate("/login");
+  }
+
   return (
-    <div className="container d-flex align-items-center justify-content-center">
-      <div className="card p-4 bg-secondary bg-opacity-10">
+    <div className="container-login d-flex align-items-center justify-content-center">
+      <div className="container-centro">
+      <div className="card-cadastro">
+        <h1 className="mb-5 mb-5-login">Já tem conta?</h1>
+        <div className="msgCadastrar">
+          Entre para poder apreciar tudo que temos de melhor no mundo agrícola!
+        </div>
+        <button className="btn verde_amarelado" onClick={entrar}>
+          Entrar
+        </button>
+      </div>
+      <div className="card-p-4-login">
         <div className="card-body">
-          <h1 className="mb-4">Cadastro</h1>
+          <h1>Criar conta</h1>
           <form onSubmit={aoSubmeterFormulario}>
             <div className="mb-3">
+             
               <label htmlFor="nome" className="form-label">
                 Nome:
               </label>
+              <div className="sobrepor">
+              <MdPerson className="icone"/>
               <input
                 type="text"
-                className="form-control"
+                className="personalizado form-control "
                 id="nome"
                 value={nome}
                 onChange={(event) => setNome(event.target.value)}
                 required
               />
+              </div>
             </div>
-            <div className="mb-3">
-              <label htmlFor="cpf" className="form-label">
-                CPF:
-              </label>
-              <InputMask
-                mask="999.999.999-99"
-                type="text"
-                className="form-control"
-                id="cpf"
-                value={documento}
-                onChange={(event) => setDocumento(event.target.value)}
-                required
-              />
-            </div>
-            <div className="mb-3">
-              <label htmlFor="celular" className="form-label">
-                Número de contato:
-              </label>
-              <InputMask
-                mask="(99) 99999-9999"
-                type="text"
-                className="form-control"
-                id="celular"
-                value={celular}
-                onChange={(event) => setCelular(event.target.value)}
-                required
-              />
-            </div>
-            <div className="mb-3">
-              <label htmlFor="email" className="form-label">
-                Email:
-              </label>
-              <input
-                type="email"
-                className="form-control"
-                id="email"
-                value={email}
-                onChange={(event) => setEmail(event.target.value)}
-                required
-              />
-            </div>
+
             <div className="mb-3">
               <label htmlFor="login" className="form-label">
                 Login:
               </label>
+              <div className="sobrepor">
+              <MdLogin className="icone"/>
               <input
                 type="text"
-                className="form-control"
+                className="personalizado form-control"
                 id="login"
                 value={login}
                 onChange={(event) => setLogin(event.target.value)}
                 required
               />
+              </div>
             </div>
             <div className="mb-3">
               <label htmlFor="password" className="form-label">
                 Senha:
               </label>
+              <div className="sobrepor">
+                <MdKey className="icone"/>
               <input
                 type="password"
-                className="form-control"
+                className="personalizado form-control"
                 id="password"
                 value={password}
                 onChange={(event) => setPassword(event.target.value)}
                 required
               />
+              </div>
+              
             </div>
             <div className="mb-3">
               <label htmlFor="confirmPassword" className="form-label">
                 Confirmar senha:
               </label>
+              <div className="sobrepor">
+                <MdCached className="icone"/>
               <input
                 type="password"
-                className="form-control"
+                className="personalizado form-control"
                 id="confirmPassword"
                 value={confirmPassword}
                 onChange={(event) => {
@@ -149,13 +138,15 @@ export default function CadastroPage() {
               {confirmPasswordError && (
                 <div className="text-danger">{confirmPasswordError}</div>
               )}
+              </div>
             </div>
-            <button className="btn btn-dark" type="submit">
-              Entrar
+            <button className="btn verde_escuro" type="submit">
+              Cadastrar
             </button>
           </form>
         </div>
       </div>
+    </div>
     </div>
   );
 }

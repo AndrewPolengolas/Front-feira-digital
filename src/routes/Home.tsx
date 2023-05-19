@@ -3,11 +3,10 @@ import { Link, useNavigate } from "react-router-dom";
 import Busca from "../model/Busca";
 import Produto from "../model/Produto";
 import ListarProdutos from "../components/produtos/ListaProdutos";
-import "../styles/home.css";
+import "./styles/home.css";
 import NavBar from "../components/navbar/navbar";
 
 const Home = () => {
-  const [nome, setNome] = useState<string | null>(null);
   const [listaProdutos, setListaProdutos] = useState<Produto[]>([]);
   const [filtro, setFiltro] = useState<string | null>(null);
   const navigate = useNavigate();
@@ -24,24 +23,33 @@ const Home = () => {
       precoMax: null,
       categoria: null,
       vendedor: null,
-      nome: termo !== null && termo.length !== 0 ? termo : null,
+      nome: null,
       codigo: null
     };
     return await ListarProdutos(busca, navigate);
   };
 
-  const handleSearch = (term: string | null) => {
-    setNome(term);
-  };
+  // const listaProdutos2 = [
+  //   {id:1,codigo:1000,imagem:"https://www.minicash.com.br/image/cache/catalog/img/produtos_2021/abacaxi-un-550x550.png",nome:"abacaxi",preco:200.00,tipoEstoque:"PESO",descricao:"Abacaxi doce",pesoMedio:0.500,descQuantidade:"200"},
+  //   {id:2,codigo:1001,imagem:"https://www.minicash.com.br/image/cache/catalog/img/produtos_2021/abacaxi-un-550x550.png",nome:"abacaxi",preco:200.00,tipoEstoque:"PESO",descricao:"Abacaxi doce",pesoMedio:0.500,descQuantidade:"200"},
+  //   {id:3,codigo:1002,imagem:"https://www.minicash.com.br/image/cache/catalog/img/produtos_2021/abacaxi-un-550x550.png",nome:"abacaxi",preco:200.00,tipoEstoque:"PESO",descricao:"Abacaxi doce",pesoMedio:0.500,descQuantidade:"200"},
+  //   {id:4,codigo:1003,imagem:"https://www.minicash.com.br/image/cache/catalog/img/produtos_2021/abacaxi-un-550x550.png",nome:"abacaxi",preco:200.00,tipoEstoque:"PESO",descricao:"Abacaxi doce",pesoMedio:0.500,descQuantidade:"200"},
+  //   {id:5,codigo:1004,imagem:"https://www.minicash.com.br/image/cache/catalog/img/produtos_2021/abacaxi-un-550x550.png",nome:"abacaxi",preco:200.00,tipoEstoque:"PESO",descricao:"Abacaxi doce",pesoMedio:0.500,descQuantidade:"200"},
+  //   {id:6,codigo:1005,imagem:"https://www.minicash.com.br/image/cache/catalog/img/produtos_2021/abacaxi-un-550x550.png",nome:"abacaxi",preco:200.00,tipoEstoque:"PESO",descricao:"Abacaxi doce",pesoMedio:0.500,descQuantidade:"200"},
+  //   {id:7,codigo:1006,imagem:"https://www.minicash.com.br/image/cache/catalog/img/produtos_2021/abacaxi-un-550x550.png",nome:"abacaxi",preco:200.00,tipoEstoque:"PESO",descricao:"Abacaxi doce",pesoMedio:0.500,descQuantidade:"200"},
+  //   {id:8,codigo:1007,imagem:"https://www.minicash.com.br/image/cache/catalog/img/produtos_2021/abacaxi-un-550x550.png",nome:"abacaxi",preco:200.00,tipoEstoque:"PESO",descricao:"Abacaxi doce",pesoMedio:0.500,descQuantidade:"200"},
+
+  // ]
+  
 
   useEffect(() => {
     (async () =>
-      setListaProdutos(await buscarProdutos(nome, filtro, navigate)))();
-  }, [nome, filtro, navigate]);
+      setListaProdutos(await buscarProdutos(null, filtro, navigate)))();
+  }, [filtro, navigate]);
 
   return (
     <div className="container">
-      <NavBar onSearch={handleSearch}></NavBar>
+      <NavBar></NavBar>
       <h1 className="text-center my-5" style={{ paddingTop: "80px" }}>
         Os melhores produtos da feira na sua casa
       </h1>
@@ -66,7 +74,7 @@ const Home = () => {
         {listaProdutos.map((produto) => (
           <div className="col-md-2 mb-4" key={produto.id}>
             <div
-              className="card align-items-center maximizar-width card-img-top"
+              className="card"
               style={{ maxHeight: "500px" }}
             >
               <Link to={`/produto/${produto.codigo}`} state={{ produto }}>

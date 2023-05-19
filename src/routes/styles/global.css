@@ -1,0 +1,9 @@
+:root {
+	--amarelo-claro: #fcfcf4;
+	--verde-amarelado: #dee236;
+	--verde-medio: #9ac434;
+	--verde-escuro: #05260b;
+	--branco: #fff;
+
+	--sombra-principal: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}

@@ -1,0 +1,26 @@
+.carrinho-overlay {
+    display: flex;
+    justify-content: end;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    /* Cor de fundo cinza */
+    z-index: 999;
+}
+
+.carrinho-modal {
+    width: 50%;
+    max-width: 400px;
+    background-color: white;
+    z-index: 1000;
+    padding: 20px;
+    transition: transform 0.3s ease-in-out;
+    padding-top: 150px;
+}
+
+.carrinho-modal.open {
+    transform: translateX(50%);
+}

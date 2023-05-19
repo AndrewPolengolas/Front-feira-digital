@@ -7,6 +7,7 @@ import {
 } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 import { KeyContext } from "../App";
 import CadastroCliente from "../model/CadastroCliente";
 import { MyContextType } from "../model/MyContextType";
@@ -39,37 +40,13 @@ export const AuthContext = createContext({} as AuthContextData);
 
 export function AuthProvider({ children }: AuthProviderProps) {
   const [user, setUser] = useState<UserProps>();
-  const isAuthenticated = !(user == null);
+  const isAuthenticated = !!sessionStorage.getItem("token");
   const navigate = useNavigate();
   const api = setupApiClient(navigate);
   const { setIsLoggedIn } = useContext(KeyContext) as MyContextType;
 
-  useEffect(() => {
-    const token = sessionStorage.getItem("token");
-
-    if (token) {
-      api
-        .get<InfosUser>("/infos")
-        .then((response) => {
-          const { id, firstName, email } = response.data;
-
-          setUser({
-            id,
-            firstName,
-            email: email,
-            token,
-          });
-        })
-        .catch(() => {
-          setUser(undefined);
-          signOut(navigate);
-        });
-    }
-  }, [api, navigate]);
-
   const signIn = async ({ login, password }: LoginDto) => {
     try {
-      const api = setupApiClient(navigate);
 
       const response = await api.post("/auth/login", {
         login: login,

@@ -1,0 +1,44 @@
+@import "bootstrap/dist/css/bootstrap.min.css";
+
+.card {
+	border: 5px solid var(--verde-amarelado) !important;
+	box-shadow: var(--sombra-principal);
+}
+.card img {
+	transform: scale(0.9);
+	transition: 0.3s all ease;
+}
+
+.card img:hover {
+	transform: scale(1);
+}
+
+.card2 {
+	box-shadow: var(--sombra-principal);
+}
+
+.card-header {
+	padding: 1rem;
+	background-color: #05260b;
+	border: 10px solid #05260b;
+}
+
+.card-title {
+	color: white;
+	font-size: 1rem;
+	font-weight: 400;
+	border-radius: 20%;
+}
+
+.card-body {
+	background-color: #9ac434;
+	padding: 2rem;
+}
+
+.borda-verde {
+	border: 4px solid #05260b
+}
+
+.card-endereco {
+	padding-top: 10rem;
+}
